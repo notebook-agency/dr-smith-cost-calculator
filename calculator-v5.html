@@ -402,9 +402,7 @@
 
 /* ── FAQ ── */
 .dc-faq {
-  font-family: 'Instrument Sans', -apple-system, sans-serif;
-  color: var(--ink); -webkit-font-smoothing: antialiased;
-  padding: 2.5rem 0 1rem;
+  padding-top: 2.5rem;
   border-top: 1px solid var(--border);
   margin-top: 0.5rem;
 }
@@ -560,12 +558,8 @@ details[open] > summary { color: var(--gold); }
     </div>
   </div>
 
-</div>
-
-<!-- ═══════════════════════════
-     FAQ
-     ═══════════════════════════ -->
-<div class="dc-faq">
+  <!-- FAQ — inside same portrait wrapper -->
+  <div class="dc-faq">
   <h3 class="dc-faq__title">Frequently asked questions</h3>
   <ul class="dc-faq__list">
     <li class="dc-faq__item">
@@ -609,7 +603,9 @@ details[open] > summary { color: var(--gold); }
       </details>
     </li>
   </ul>
-</div>
+  </div><!-- /.dc-faq -->
+
+</div><!-- /.dc -->
 
 <script>
 (function () {
