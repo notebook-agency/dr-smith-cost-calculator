@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liposuction Cost Calculator NYC — Dr. Darren Smith MD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- FAQPage + MedicalBusiness schema for AI Overview visibility -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MedicalBusiness",
+      "name": "Darren M. Smith MD, FACS",
+      "url": "https://www.darrensmithmd.com",
+      "telephone": "(212) 633-0627",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "111 East 57th Street",
+        "addressLocality": "New York",
+        "addressRegion": "NY",
+        "postalCode": "10021",
+        "addressCountry": "US"
+      },
+      "medicalSpecialty": "Plastic Surgery"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does liposuction cost in NYC?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Liposuction in New York City typically costs between $3,500 and $9,500 per treatment area for surgeon fees alone. The total cost depends on the number of areas treated, the technique used (standard tumescent, VASER, or BodyTite), and anesthesia type. A single area with local anesthesia may total $4,000–$7,000 all-in, while multiple areas under general anesthesia can range from $15,000–$30,000+."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What factors affect the cost of liposuction?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The main factors are: (1) number of treatment areas, (2) technique — VASER and BodyTite cost more than standard tumescent lipo, (3) anesthesia type — local adds ~$500, general anesthesia adds $2,500–$3,000, (4) facility fees, and (5) surgeon experience and board certification. In NYC, surgeon fees alone typically range from $3,500 to $9,500 per area."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is VASER liposuction and does it cost more?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "VASER liposuction uses ultrasound energy to liquefy fat before removal, allowing for more precise contouring with less trauma to surrounding tissue. It typically costs $1,500–$2,500 more per area than standard tumescent liposuction. Dr. Smith uses VASER for cases requiring high-definition results or treatment of fibrous areas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is BodyTite and how much does it cost compared to standard lipo?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "BodyTite combines radiofrequency-assisted liposuction (RFAL) with simultaneous skin tightening, making it ideal for patients with moderate skin laxity who want to avoid a surgical lift. It costs approximately $2,000–$3,500 more per area than standard liposuction due to the additional technology and time required."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are anesthesia and facility fees included in the liposuction estimate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No — the estimates shown are surgeon fees only. Anesthesia and facility fees are additional: approximately $500 for a single area under local anesthesia, $1,000–$2,000 for 2–3 areas under twilight sedation, and $1,500–$3,000 for multiple areas under general anesthesia. Exact fees are confirmed at your consultation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is financing available for liposuction at Dr. Darren Smith's practice?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Dr. Smith's practice offers financing options through CareCredit and Alphaeon Credit, allowing patients to spread the cost over 12–60 months. Monthly payments vary based on procedure cost and financing plan selected. Financing options are discussed in detail during your consultation."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+/* ============================================================
+   DR. DARREN SMITH MD — LIPOSUCTION COST CALCULATOR (V4)
+   Research-backed rebuild. Drop into WordPress Custom HTML.
+   No max-width — inherits from the theme's content column.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --gold:         #9A6F00;
+  --gold-mid:     #B8860B;
+  --gold-pale:    #FBF5E6;
+  --gold-border:  #E8D8A0;
+  --ink:          #1A1814;
+  --ink-2:        #3D3830;
+  --muted:        #7A736A;
+  --bg:           #FAFAF9;
+  --surface:      #FFFFFF;
+  --surface-warm: #FDFBF7;
+  --border:       #EAE6E0;
+  --border-2:     #D8D2C8;
+  --green:        #22A35A;
+  --radius:       10px;
+  --radius-lg:    16px;
+  --shadow-sm:    0 2px 8px rgba(26,24,20,.07), 0 1px 3px rgba(26,24,20,.04);
+  --shadow-md:    0 6px 24px rgba(26,24,20,.09), 0 2px 6px rgba(26,24,20,.05);
+  --t:            160ms cubic-bezier(.4,0,.2,1);
+}
+
+.dc {
+  font-family: 'Jost', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  background: var(--bg);
+  padding: 2rem 0 2.5rem;
+}
+
+/* ── Ornament ── */
+.dc__ornament {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+.dc__ornament-line { flex: 1; height: 1px; background: var(--gold-border); }
+.dc__ornament-diamond {
+  width: 7px; height: 7px;
+  background: var(--gold-mid);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+/* ── 2-col layout ── */
+.dc__layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 1.75rem;
+  align-items: start;
+}
+@media (max-width: 700px) {
+  .dc__layout { grid-template-columns: 1fr; }
+  .dc__sidebar { position: static !important; order: -1; }
+  .dc__mobile-cta { display: block !important; }
+}
+
+/* ── Left column ── */
+.dc__left {}
+
+/* Area panel */
+.dc__panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.625rem;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 0.875rem;
+}
+.dc__panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.125rem;
+}
+.dc__section-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.dc__count {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--gold);
+  min-width: 80px;
+  text-align: right;
+  transition: opacity var(--t);
+}
+
+/* Area grid */
+.dc__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.575rem;
+}
+@media (max-width: 480px) {
+  .dc__grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Area card */
+.dc__area { position: relative; }
+.dc__area input[type="checkbox"] {
+  position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none;
+}
+.dc__card {
+  display: block;
+  padding: 0.8rem 0.875rem;
+  background: var(--surface-warm);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  position: relative;
+  transition: border-color var(--t), background var(--t), box-shadow var(--t);
+  min-height: 68px;
+}
+.dc__area:hover .dc__card { border-color: var(--gold-border); }
+.dc__area input:checked + .dc__card {
+  border-color: var(--gold-mid);
+  background: var(--gold-pale);
+  box-shadow: 0 0 0 3px rgba(154,111,0,.1);
+}
+.dc__dot {
+  position: absolute;
+  top: 8px; right: 8px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-2);
+  background: var(--surface);
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--t);
+}
+.dc__area input:checked + .dc__card .dc__dot {
+  background: var(--gold); border-color: var(--gold);
+}
+.dc__dot svg { width: 9px; height: 9px; opacity: 0; transition: opacity var(--t); }
+.dc__area input:checked + .dc__card .dc__dot svg { opacity: 1; }
+.dc__area-name {
+  font-size: 0.82rem; font-weight: 500; color: var(--ink);
+  line-height: 1.3; padding-right: 1.5rem; margin-bottom: 0.2rem;
+}
+.dc__area-price {
+  font-size: 0.71rem; font-weight: 300; color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Technique selector ── */
+.dc__technique {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.625rem;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 0.875rem;
+}
+.dc__technique-head { margin-bottom: 0.875rem; }
+.dc__technique-pills {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.dc__pill { position: relative; }
+.dc__pill input[type="radio"] {
+  position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none;
+}
+.dc__pill-label {
+  display: block;
+  padding: 0.5rem 1rem;
+  border: 1.5px solid var(--border-2);
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: all var(--t);
+  white-space: nowrap;
+}
+.dc__pill:hover .dc__pill-label { border-color: var(--gold-border); }
+.dc__pill input:checked + .dc__pill-label {
+  border-color: var(--gold-mid);
+  background: var(--gold-pale);
+  color: var(--gold);
+  font-weight: 500;
+}
+.dc__pill input:focus-visible + .dc__pill-label {
+  outline: 2px solid var(--gold); outline-offset: 2px;
+}
+.dc__technique-note {
+  margin-top: 0.625rem;
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ── Anesthesia note ── */
+.dc__note {
+  padding: 0.7rem 1rem;
+  border-left: 2px solid var(--gold-border);
+  background: var(--gold-pale);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 0.76rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.dc__note strong { font-weight: 500; color: var(--ink-2); }
+
+/* ── Mobile CTA (hidden on desktop) ── */
+.dc__mobile-cta { display: none; margin-top: 1rem; }
+.dc__mobile-cta a {
+  display: block; width: 100%; padding: 0.9rem;
+  background: var(--ink); color: #fff;
+  font-family: 'Jost', sans-serif; font-size: 0.875rem; font-weight: 500;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  text-align: center; text-decoration: none;
+  border-radius: var(--radius); transition: background var(--t);
+}
+.dc__mobile-cta a:hover { background: var(--ink-2); }
+
+/* ── Sidebar ── */
+.dc__sidebar { position: sticky; top: 2rem; }
+
+/* Result card */
+.dc__result {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  margin-bottom: 0.875rem;
+}
+.dc__result-accent {
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold) 0%, #D4A017 50%, var(--gold) 100%);
+}
+.dc__result-body { padding: 1.375rem 1.5rem; }
+
+/* Empty state */
+.dc__empty {
+  text-align: center; padding: 1.25rem 0.5rem 0.75rem;
+}
+.dc__empty-icon { width: 32px; height: 32px; margin: 0 auto 0.625rem; color: var(--border-2); }
+.dc__empty-text {
+  font-size: 0.82rem; font-weight: 300; color: var(--muted); line-height: 1.65;
+}
+
+/* Result filled */
+.dc__content { display: none; }
+.dc__result-eyebrow {
+  font-size: 0.63rem; font-weight: 600; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem;
+}
+.dc__result-total {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: clamp(1.35rem, 2.8vw, 1.75rem);
+  font-weight: 500; letter-spacing: -0.02em; color: var(--ink);
+  line-height: 1.1; margin-bottom: 0.2rem;
+  font-variant-numeric: tabular-nums;
+}
+.dc__result-sub {
+  font-size: 0.73rem; font-weight: 300; color: var(--muted); margin-bottom: 1rem;
+}
+.dc__sep { height: 1px; background: var(--border); margin-bottom: 0.875rem; }
+
+/* Technique badge */
+.dc__technique-badge {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  padding: 0.25rem 0.625rem;
+  background: var(--gold-pale); border: 1px solid var(--gold-border);
+  border-radius: 100px; font-size: 0.68rem; font-weight: 500;
+  color: var(--gold); margin-bottom: 0.875rem;
+}
+
+/* Breakdown */
+.dc__breakdown { margin-bottom: 0.75rem; }
+.dc__brow {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 0.5rem; padding: 0.28rem 0; font-size: 0.76rem;
+  border-bottom: 1px solid var(--border);
+}
+.dc__brow:last-child { border-bottom: none; }
+.dc__brow-name { font-weight: 400; color: var(--ink-2); }
+.dc__brow-price { font-weight: 300; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* Anesthesia row */
+.dc__anes {
+  display: none; justify-content: space-between; align-items: baseline;
+  gap: 0.5rem; padding: 0.45rem 0.7rem; margin-bottom: 0.75rem;
+  background: var(--gold-pale); border: 1px solid var(--gold-border);
+  border-radius: var(--radius); font-size: 0.74rem;
+}
+.dc__anes.show { display: flex; }
+.dc__anes-label { font-weight: 400; color: var(--ink-2); }
+.dc__anes-price { font-weight: 300; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* Financing hint */
+.dc__finance {
+  display: none; align-items: center; gap: 0.4rem;
+  padding: 0.45rem 0.7rem; margin-bottom: 0.75rem;
+  background: #F0FAF5; border: 1px solid #A7F3D0;
+  border-radius: var(--radius); font-size: 0.72rem;
+}
+.dc__finance.show { display: flex; }
+.dc__finance-icon { color: var(--green); flex-shrink: 0; }
+.dc__finance-text { font-weight: 300; color: #065F46; }
+.dc__finance-text strong { font-weight: 500; }
+
+/* Disclaimer */
+.dc__disclaimer {
+  font-size: 0.69rem; font-weight: 300; color: var(--muted);
+  line-height: 1.6; margin-bottom: 1rem; opacity: 0.85;
+}
+
+/* Email capture */
+.dc__email-wrap { margin-bottom: 0.75rem; }
+.dc__email-label {
+  font-size: 0.72rem; font-weight: 500; color: var(--ink-2);
+  display: block; margin-bottom: 0.4rem;
+}
+.dc__email-row { display: flex; gap: 0.4rem; }
+.dc__email-input {
+  flex: 1; min-width: 0;
+  padding: 0.6rem 0.75rem;
+  border: 1.5px solid var(--border-2);
+  border-radius: var(--radius);
+  font-family: 'Jost', sans-serif; font-size: 0.8rem; font-weight: 300;
+  color: var(--ink); background: var(--surface-warm);
+  transition: border-color var(--t);
+  outline: none;
+}
+.dc__email-input::placeholder { color: var(--muted); }
+.dc__email-input:focus { border-color: var(--gold-mid); }
+.dc__email-btn {
+  padding: 0.6rem 0.875rem;
+  background: var(--gold);
+  color: #fff;
+  font-family: 'Jost', sans-serif; font-size: 0.75rem; font-weight: 500;
+  border: none; border-radius: var(--radius); cursor: pointer;
+  white-space: nowrap; transition: filter var(--t);
+}
+.dc__email-btn:hover { filter: brightness(1.1); }
+.dc__email-sent {
+  display: none;
+  font-size: 0.75rem; font-weight: 400; color: var(--green);
+  padding: 0.4rem 0;
+}
+
+/* Primary CTA */
+.dc__cta {
+  display: block; width: 100%;
+  padding: 0.875rem 1rem;
+  background: var(--ink); color: #fff;
+  font-family: 'Jost', sans-serif; font-size: 0.82rem;
+  font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+  text-align: center; text-decoration: none;
+  border: none; border-radius: var(--radius); cursor: pointer;
+  transition: background var(--t), transform var(--t);
+}
+.dc__cta:hover { background: var(--ink-2); transform: translateY(-1px); }
+.dc__cta:active { transform: translateY(0); }
+.dc__cta:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+/* Trust badge */
+.dc__trust {
+  display: flex; align-items: center; gap: 0.625rem;
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+.dc__trust-icon { flex-shrink: 0; color: var(--gold); }
+.dc__trust-text {}
+.dc__trust-name {
+  font-size: 0.78rem; font-weight: 600; color: var(--ink); line-height: 1.3;
+}
+.dc__trust-certs {
+  font-size: 0.68rem; font-weight: 300; color: var(--muted);
+}
+
+/* Focus for keyboard nav */
+.dc__area input:focus-visible + .dc__card { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* ── FAQ section ── */
+.dc-faq {
+  font-family: 'Jost', -apple-system, sans-serif;
+  color: var(--ink); -webkit-font-smoothing: antialiased;
+  padding: 2.5rem 0 1rem;
+  border-top: 1px solid var(--border);
+  margin-top: 1rem;
+}
+.dc-faq__title {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 500; letter-spacing: -0.02em;
+  color: var(--ink); margin-bottom: 1.25rem;
+}
+.dc-faq__list { list-style: none; }
+.dc-faq__item {
+  border-bottom: 1px solid var(--border);
+}
+.dc-faq__item:first-child { border-top: 1px solid var(--border); }
+.dc-faq__q {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 1rem; padding: 1rem 0; cursor: pointer;
+  font-size: 0.9rem; font-weight: 500; color: var(--ink);
+  list-style: none; user-select: none;
+  transition: color var(--t);
+}
+.dc-faq__q:hover { color: var(--gold); }
+.dc-faq__q::marker, .dc-faq__q::-webkit-details-marker { display: none; }
+.dc-faq__icon {
+  flex-shrink: 0; width: 18px; height: 18px;
+  border-radius: 50%; border: 1.5px solid var(--border-2);
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--t); color: var(--muted);
+}
+details[open] .dc-faq__icon {
+  background: var(--gold-pale); border-color: var(--gold-border); color: var(--gold);
+  transform: rotate(45deg);
+}
+.dc-faq__a {
+  font-size: 0.875rem; font-weight: 300; color: var(--muted);
+  line-height: 1.75; padding-bottom: 1rem; max-width: 680px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+}
+</style>
+
+<!-- ════════════════════════════════════
+     CALCULATOR
+     ════════════════════════════════════ -->
+<div class="dc" id="lipo-calculator">
+
+  <div class="dc__ornament" aria-hidden="true">
+    <div class="dc__ornament-line"></div>
+    <div class="dc__ornament-diamond"></div>
+    <div class="dc__ornament-line"></div>
+  </div>
+
+  <div class="dc__layout">
+
+    <!-- ── Left: inputs ── -->
+    <div class="dc__left">
+
+      <!-- Area selection -->
+      <div class="dc__panel">
+        <div class="dc__panel-head">
+          <span class="dc__section-label">Treatment Areas</span>
+          <span class="dc__count" id="dc-count" aria-live="polite"></span>
+        </div>
+        <div class="dc__grid" id="dc-grid" role="group" aria-label="Select treatment areas"></div>
+      </div>
+
+      <!-- Technique selector -->
+      <div class="dc__technique">
+        <div class="dc__technique-head">
+          <span class="dc__section-label">Technique</span>
+        </div>
+        <div class="dc__technique-pills" role="radiogroup" aria-label="Select technique">
+          <label class="dc__pill">
+            <input type="radio" name="technique" value="standard" checked>
+            <span class="dc__pill-label">Standard Lipo</span>
+          </label>
+          <label class="dc__pill">
+            <input type="radio" name="technique" value="vaser">
+            <span class="dc__pill-label">VASER &nbsp;(+$1,500/area)</span>
+          </label>
+          <label class="dc__pill">
+            <input type="radio" name="technique" value="bodytite">
+            <span class="dc__pill-label">BodyTite &nbsp;(+$2,500/area)</span>
+          </label>
+        </div>
+        <p class="dc__technique-note">VASER uses ultrasound for precise contouring. BodyTite adds radiofrequency skin tightening — ideal if you have mild skin laxity.</p>
+      </div>
+
+      <!-- Anesthesia note -->
+      <div class="dc__note" role="note">
+        <strong>Not included:</strong> Anesthesia & facility fees add approx. <strong>$500–$1,500</strong> (1 area, local) or <strong>$1,500–$3,000</strong> (multiple areas, general/twilight). Confirmed at consultation.
+      </div>
+
+      <!-- Mobile CTA (shown below inputs on small screens) -->
+      <div class="dc__mobile-cta">
+        <a href="/schedule-consultation/">Book a Free Consultation</a>
+      </div>
+    </div>
+
+    <!-- ── Right: result sidebar ── -->
+    <aside class="dc__sidebar">
+
+      <!-- Estimate panel -->
+      <div class="dc__result" role="region" aria-label="Your cost estimate" aria-live="polite">
+        <div class="dc__result-accent"></div>
+        <div class="dc__result-body">
+
+          <!-- Empty state -->
+          <div class="dc__empty" id="dc-empty">
+            <svg class="dc__empty-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <rect x="3" y="7" width="26" height="20" rx="3" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M10 7V5a6 6 0 0112 0v2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <path d="M9 17h14M9 22h8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+            <p class="dc__empty-text">Select areas above<br>to see your estimate</p>
+          </div>
+
+          <!-- Filled state -->
+          <div class="dc__content" id="dc-content">
+            <div class="dc__result-eyebrow">Estimated Surgeon Fee</div>
+            <div class="dc__result-total" id="dc-total">—</div>
+            <div class="dc__result-sub" id="dc-sub"></div>
+
+            <div class="dc__technique-badge" id="dc-tech-badge">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                <circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M5 3v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+              <span id="dc-tech-name">Standard Lipo</span>
+            </div>
+
+            <div class="dc__sep"></div>
+            <div class="dc__breakdown" id="dc-breakdown"></div>
+
+            <div class="dc__anes" id="dc-anes">
+              <span class="dc__anes-label">+ Est. anesthesia & facility</span>
+              <span class="dc__anes-price" id="dc-anes-price"></span>
+            </div>
+
+            <div class="dc__finance" id="dc-finance">
+              <svg class="dc__finance-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.3"/>
+                <path d="M7 4.5v3l2 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+              <span class="dc__finance-text">Financing from <strong id="dc-monthly">~$X/mo</strong> — ask us about CareCredit</span>
+            </div>
+
+            <p class="dc__disclaimer">Surgeon fee estimates only. Final cost confirmed at consultation based on your anatomy, volume, and technique choice.</p>
+
+            <!-- Soft email capture -->
+            <div class="dc__email-wrap" id="dc-email-wrap">
+              <label class="dc__email-label" for="dc-email-input">Send this estimate to your email</label>
+              <div class="dc__email-row">
+                <input class="dc__email-input" id="dc-email-input" type="email" placeholder="your@email.com" autocomplete="email">
+                <button class="dc__email-btn" id="dc-email-btn" type="button">Send</button>
+              </div>
+              <p class="dc__email-sent" id="dc-email-sent">
+                ✓ Sent! We'll follow up with more details.
+              </p>
+            </div>
+
+            <a href="/schedule-consultation/" class="dc__cta">Book a Free Consultation</a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Trust badge -->
+      <div class="dc__trust">
+        <svg class="dc__trust-icon" width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <path d="M14 2L3 7v8c0 6.1 4.7 11.8 11 13 6.3-1.2 11-6.9 11-13V7L14 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M9.5 14l3 3 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="dc__trust-text">
+          <div class="dc__trust-name">Darren M. Smith, MD, FACS</div>
+          <div class="dc__trust-certs">Board Certified · ABPS · NYC Plastic Surgeon</div>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     FAQ SECTION
+     ════════════════════════════════════ -->
+<div class="dc-faq">
+  <h3 class="dc-faq__title">Frequently asked questions</h3>
+  <ul class="dc-faq__list">
+    <li class="dc-faq__item">
+      <details>
+        <summary class="dc-faq__q">
+          How much does liposuction cost in NYC?
+          <span class="dc-faq__icon" aria-hidden="true">
+            <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M4.5 1v7M1 4.5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </span>
+        </summary>
+        <p class="dc-faq__a">Liposuction in NYC typically costs between $3,500 and $9,500 per treatment area for surgeon fees. Total cost depends on areas treated, technique (VASER and BodyTite cost more), and anesthesia type. A single area with local anesthesia may total $4,000–$7,000 all-in; multiple areas under general anesthesia can range from $15,000–$30,000+.</p>
+      </details>
+    </li>
+    <li class="dc-faq__item">
+      <details>
+        <summary class="dc-faq__q">
+          What factors affect the cost of liposuction?
+          <span class="dc-faq__icon" aria-hidden="true">
+            <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M4.5 1v7M1 4.5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </span>
+        </summary>
+        <p class="dc-faq__a">The main factors are: number of treatment areas, technique (VASER and BodyTite cost more than standard tumescent lipo), anesthesia type (local ~$500, general $2,500–$3,000), facility fees, and surgeon experience. In NYC, premium board-certified surgeons typically charge 20–40% more than the national average.</p>
+      </details>
+    </li>
+    <li class="dc-faq__item">
+      <details>
+        <summary class="dc-faq__q">
+          What is VASER liposuction and does it cost more?
+          <span class="dc-faq__icon" aria-hidden="true">
+            <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M4.5 1v7M1 4.5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </span>
+        </summary>
+        <p class="dc-faq__a">VASER uses ultrasound energy to liquefy fat before removal, allowing more precise contouring with less trauma to surrounding tissue. It typically costs $1,500–$2,500 more per area than standard lipo. Dr. Smith uses VASER for high-definition results and treatment of fibrous areas like the back and male chest.</p>
+      </details>
+    </li>
+    <li class="dc-faq__item">
+      <details>
+        <summary class="dc-faq__q">
+          What is BodyTite and is it worth the extra cost?
+          <span class="dc-faq__icon" aria-hidden="true">
+            <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M4.5 1v7M1 4.5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </span>
+        </summary>
+        <p class="dc-faq__a">BodyTite combines radiofrequency-assisted liposuction with simultaneous skin tightening — ideal for patients with moderate skin laxity who want to avoid a surgical lift. It costs approximately $2,000–$3,500 more per area. If skin tightening is not a concern, standard lipo or VASER may give comparable fat removal results at lower cost.</p>
+      </details>
+    </li>
+    <li class="dc-faq__item">
+      <details>
+        <summary class="dc-faq__q">
+          Are anesthesia and facility fees included in the estimate?
+          <span class="dc-faq__icon" aria-hidden="true">
+            <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M4.5 1v7M1 4.5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </span>
+        </summary>
+        <p class="dc-faq__a">No — the estimates above are surgeon fees only. Anesthesia and facility fees are additional: approximately $500 for a single area under local anesthesia, $1,000–$2,000 for 2–3 areas under twilight sedation, and $1,500–$3,000 for multiple areas under general anesthesia. Exact fees are confirmed at your consultation.</p>
+      </details>
+    </li>
+    <li class="dc-faq__item">
+      <details>
+        <summary class="dc-faq__q">
+          Is financing available for liposuction?
+          <span class="dc-faq__icon" aria-hidden="true">
+            <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M4.5 1v7M1 4.5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </span>
+        </summary>
+        <p class="dc-faq__a">Yes. Dr. Smith's practice offers financing through CareCredit and Alphaeon Credit, allowing patients to spread costs over 12–60 months. A $10,000 procedure, for example, could be financed from approximately $190–$280/month depending on the plan. Financing details are discussed at consultation.</p>
+      </details>
+    </li>
+  </ul>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var AREAS = [
+    { id: 'abd-full',    name: 'Abdomen (upper & lower)', low: 6500, high: 9500 },
+    { id: 'abd-lower',   name: 'Abdomen (lower only)',    low: 4000, high: 6500 },
+    { id: 'arms',        name: 'Arms',                   low: 4500, high: 7000 },
+    { id: 'back',        name: 'Back',                   low: 4500, high: 7500 },
+    { id: 'male-breast', name: 'Male Breast Tissue',     low: 4500, high: 7500 },
+    { id: 'banana-roll', name: 'Banana Roll',            low: 3500, high: 5500 },
+    { id: 'chin',        name: 'Chin, Jowls & Neck',     low: 3500, high: 5500 },
+    { id: 'flanks',      name: 'Flanks',                 low: 4000, high: 6500 },
+    { id: 'ant-thighs',  name: 'Anterior Thighs',        low: 4500, high: 7000 },
+    { id: 'inn-thighs',  name: 'Inner Thighs',           low: 4000, high: 6500 },
+    { id: 'out-thighs',  name: 'Outer Thighs',           low: 4500, high: 7000 },
+    { id: 'axilla',      name: 'Axilla / Armpit',        low: 3500, high: 5500 },
+  ];
+
+  var TECHNIQUES = {
+    standard:  { name: 'Standard Lipo',  addPerArea: 0 },
+    vaser:     { name: 'VASER Lipo',     addPerArea: 1500 },
+    bodytite:  { name: 'BodyTite',       addPerArea: 2500 },
+  };
+
+  var CHECK = '<svg viewBox="0 0 9 7" fill="none" aria-hidden="true"><path d="M1 3.5l2.5 2.5L8 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  function $(id) { return document.getElementById(id); }
+  function fmt(n) { return '$' + n.toLocaleString('en-US'); }
+
+  function anesthesia(n) {
+    if (n <= 0) return null;
+    if (n === 1) return { low: 500,  high: 1500 };
+    if (n <= 3)  return { low: 1000, high: 2000 };
+    return             { low: 1500, high: 3000 };
+  }
+
+  function monthlyPayment(total) {
+    return Math.round(total / 36);
+  }
+
+  function getTechnique() {
+    var el = document.querySelector('input[name="technique"]:checked');
+    return el ? TECHNIQUES[el.value] : TECHNIQUES.standard;
+  }
+
+  function buildGrid() {
+    var grid = $('dc-grid');
+    AREAS.forEach(function (a) {
+      var lbl = document.createElement('label');
+      lbl.className = 'dc__area';
+
+      var inp = document.createElement('input');
+      inp.type = 'checkbox';
+      inp.value = a.id;
+      inp.setAttribute('aria-label', a.name + ', ' + fmt(a.low) + ' to ' + fmt(a.high));
+      inp.addEventListener('change', update);
+
+      var card = document.createElement('div');
+      card.className = 'dc__card';
+      card.innerHTML =
+        '<div class="dc__dot">' + CHECK + '</div>' +
+        '<div class="dc__area-name">' + a.name + '</div>' +
+        '<div class="dc__area-price">' + fmt(a.low) + '\u2013' + fmt(a.high) + '</div>';
+
+      lbl.appendChild(inp);
+      lbl.appendChild(card);
+      grid.appendChild(lbl);
+    });
+  }
+
+  function update() {
+    var ids = [].slice.call(document.querySelectorAll('#dc-grid input:checked'))
+                .map(function (i) { return i.value; });
+    var sel = AREAS.filter(function (a) { return ids.indexOf(a.id) !== -1; });
+    var n = sel.length;
+    var tech = getTechnique();
+
+    $('dc-count').textContent = n > 0 ? (n === 1 ? '1 area selected' : n + ' areas selected') : '';
+
+    if (n === 0) {
+      $('dc-empty').style.display = '';
+      $('dc-content').style.display = 'none';
+      $('dc-anes').classList.remove('show');
+      $('dc-finance').classList.remove('show');
+      return;
+    }
+
+    $('dc-empty').style.display = 'none';
+    $('dc-content').style.display = 'block';
+
+    var lo = sel.reduce(function (s, a) { return s + a.low  + tech.addPerArea; }, 0);
+    var hi = sel.reduce(function (s, a) { return s + a.high + tech.addPerArea; }, 0);
+
+    $('dc-total').textContent = fmt(lo) + '\u2013' + fmt(hi);
+    $('dc-sub').textContent   = n === 1 ? '1 area' : n + ' areas';
+    $('dc-tech-name').textContent = tech.name;
+
+    $('dc-breakdown').innerHTML = sel.map(function (a) {
+      var aLo = a.low  + tech.addPerArea;
+      var aHi = a.high + tech.addPerArea;
+      return '<div class="dc__brow">' +
+        '<span class="dc__brow-name">' + a.name + '</span>' +
+        '<span class="dc__brow-price">' + fmt(aLo) + '\u2013' + fmt(aHi) + '</span>' +
+        '</div>';
+    }).join('');
+
+    var fees = anesthesia(n);
+    if (fees) {
+      $('dc-anes-price').textContent = fmt(fees.low) + '\u2013' + fmt(fees.high);
+      $('dc-anes').classList.add('show');
+    } else {
+      $('dc-anes').classList.remove('show');
+    }
+
+    $('dc-monthly').textContent = '~' + fmt(monthlyPayment(lo)) + '/mo';
+    $('dc-finance').classList.add('show');
+  }
+
+  // Wire technique change
+  document.querySelectorAll('input[name="technique"]').forEach(function (r) {
+    r.addEventListener('change', update);
+  });
+
+  // Soft email capture
+  $('dc-email-btn').addEventListener('click', function () {
+    var email = $('dc-email-input').value.trim();
+    if (!email || !email.includes('@')) {
+      $('dc-email-input').focus();
+      return;
+    }
+    // In production: POST to your CRM/email list here
+    $('dc-email-wrap').querySelector('.dc__email-row').style.display = 'none';
+    $('dc-email-sent').style.display = 'block';
+  });
+
+  buildGrid();
+}());
+</script>
