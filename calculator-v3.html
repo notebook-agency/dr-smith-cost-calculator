@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liposuction Cost Calculator — Dr. Darren Smith</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:       #1A1814;
+  --ink-btn:   #222018;
+  --white:     #FFFFFF;
+  --bg:        #FFFFFF;
+  --muted:     #6B6560;
+  --border:    #E5E2DC;
+  --green:     #22A35A;
+  --toc-text:  #2E2A26;
+  --t: 160ms cubic-bezier(.4,0,.2,1);
+}
+
+body {
+  background: var(--bg);
+  font-family: 'Jost', -apple-system, sans-serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Page shell (mimics the site's 3-col layout) ── */
+.page {
+  display: grid;
+  grid-template-columns: 220px 1fr 180px;
+  gap: 0 2.5rem;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .page {
+    grid-template-columns: 1fr;
+  }
+  .toc, .right-col { display: none; }
+}
+
+/* ── TOC ── */
+.toc {
+  position: sticky;
+  top: 2rem;
+  font-family: 'Jost', sans-serif;
+}
+.toc__list {
+  list-style: none;
+  border-left: 2px solid var(--border);
+  padding-left: 1rem;
+}
+.toc__item { margin-bottom: 1.125rem; }
+.toc__item:last-child { margin-bottom: 0; }
+.toc__link {
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--toc-text);
+  text-decoration: none;
+  line-height: 1.5;
+  display: block;
+  transition: color var(--t);
+}
+.toc__link:hover { color: var(--ink); }
+.toc__link.active {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* ── Main content ── */
+.content { min-width: 0; }
+
+/* ── Calculator section ── */
+.calc {
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+
+.calc__heading {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 0.75rem;
+}
+.calc__subhead {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+/* ── Area buttons grid ── */
+.calc__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.625rem;
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 640px) {
+  .calc__grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── Area button ── */
+.calc__area { position: relative; }
+.calc__area input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.calc__btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.85rem 0.875rem 0.85rem 1.125rem;
+  background: var(--ink-btn);
+  color: var(--white);
+  border: 2px solid var(--ink-btn);
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 400;
+  line-height: 1.3;
+  text-align: left;
+  transition: background var(--t), border-color var(--t);
+  min-height: 58px;
+}
+.calc__area:hover .calc__btn {
+  background: #333028;
+  border-color: #333028;
+}
+.calc__area input:checked + .calc__btn {
+  background: var(--ink-btn);
+  border-color: var(--ink-btn);
+}
+
+/* Check circle */
+.calc__circle {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--t), border-color var(--t);
+}
+.calc__area input:checked + .calc__btn .calc__circle {
+  background: var(--green);
+  border-color: var(--green);
+}
+.calc__circle svg {
+  width: 12px;
+  height: 12px;
+  opacity: 0;
+  transition: opacity var(--t);
+}
+.calc__area input:checked + .calc__btn .calc__circle svg { opacity: 1; }
+
+/* ── Get Estimate button ── */
+.calc__submit-wrap { margin-bottom: 1.5rem; }
+.calc__submit {
+  display: block;
+  width: 100%;
+  padding: 1.1rem 2rem;
+  background: var(--ink);
+  color: var(--white);
+  font-family: 'Jost', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-align: center;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background var(--t), transform var(--t);
+  max-width: 560px;
+  margin: 0 auto;
+}
+.calc__submit:hover { background: #333028; transform: translateY(-1px); }
+.calc__submit:active { transform: translateY(0); }
+.calc__submit:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+/* ── Result panel (shown after "Get Estimate") ── */
+.calc__result {
+  display: none;
+  background: #F7F5F1;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.625rem 1.75rem;
+  margin-top: 0.125rem;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.calc__result.visible { display: block; }
+
+.calc__result-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+.calc__result-range {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2.25rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-bottom: 0.35rem;
+  font-variant-numeric: tabular-nums;
+}
+.calc__result-areas {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+
+/* Breakdown */
+.calc__breakdown {
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  margin-bottom: 1rem;
+}
+.calc__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  font-size: 0.81rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #EDEBE7;
+}
+.calc__row:last-child { border-bottom: none; }
+.calc__row-name { font-weight: 400; color: var(--ink); }
+.calc__row-price { font-weight: 300; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* Anesthesia */
+.calc__anes {
+  display: none;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.79rem;
+  margin-bottom: 1rem;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+.calc__anes.show { display: flex; }
+.calc__anes-label { font-weight: 400; color: var(--muted); }
+.calc__anes-price { font-weight: 300; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.calc__disclaimer {
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.calc__cta {
+  display: block;
+  width: 100%;
+  padding: 0.875rem 1rem;
+  background: var(--ink);
+  color: var(--white);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background var(--t);
+}
+.calc__cta:hover { background: #333028; }
+
+/* ── No selection warning ── */
+.calc__warning {
+  display: none;
+  font-size: 0.8rem;
+  color: #B45309;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+.calc__warning.show { display: block; }
+
+/* ── Anesthesia note below grid ── */
+.calc__note {
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
+  padding: 0.75rem 1rem;
+  border-left: 2px solid var(--border);
+}
+
+/* ── Below-fold content (to show the 3-col context) ── */
+.section-heading {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+.section-body {
+  font-size: 0.94rem;
+  font-weight: 300;
+  color: #3D3830;
+  line-height: 1.75;
+}
+
+/* Right col — empty (as on site) */
+.right-col { /* intentionally blank */ }
+
+/* Accessibility */
+.calc__area input:focus-visible + .calc__btn {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Left: TOC -->
+  <nav class="toc" aria-label="Table of contents">
+    <ul class="toc__list">
+      <li class="toc__item">
+        <a href="#calculator" class="toc__link active">See Liposuction Price Range</a>
+      </li>
+      <li class="toc__item">
+        <a href="#what-makes-up" class="toc__link">What Makes Up Your Liposuction Quote?</a>
+      </li>
+      <li class="toc__item">
+        <a href="#by-state" class="toc__link">Average Cost by State: What to Expect</a>
+      </li>
+      <li class="toc__item">
+        <a href="#abdominal" class="toc__link">Exploring Abdominal Liposuction Costs: A Comprehensive Guide</a>
+      </li>
+      <li class="toc__item">
+        <a href="#ready" class="toc__link">Ready for a Transformation? Choose Excellence with Dr. Darren M. Smith</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Centre: main content -->
+  <main class="content">
+
+    <!-- Calculator -->
+    <section class="calc" id="calculator">
+      <h2 class="calc__heading">See Liposuction Price Range</h2>
+      <p class="calc__subhead">Select areas you would like to treat below</p>
+
+      <div class="calc__grid" id="calc-grid" role="group" aria-label="Select treatment areas"></div>
+
+      <div class="calc__note" role="note">
+        Estimates do not include anesthesia or facility fees (~$500–$3,000 depending on areas and anaesthesia type).
+      </div>
+
+      <div class="calc__submit-wrap">
+        <button class="calc__submit" id="calc-btn" type="button">Get Estimate</button>
+        <p class="calc__warning" id="calc-warning" role="alert">Please select at least one area first.</p>
+      </div>
+
+      <div class="calc__result" id="calc-result" aria-live="polite">
+        <div class="calc__result-label">Estimated surgeon fee</div>
+        <div class="calc__result-range" id="calc-range">—</div>
+        <div class="calc__result-areas" id="calc-areas-count"></div>
+
+        <div class="calc__breakdown" id="calc-breakdown"></div>
+
+        <div class="calc__anes" id="calc-anes">
+          <span class="calc__anes-label">+ Est. anesthesia &amp; facility</span>
+          <span class="calc__anes-price" id="calc-anes-price"></span>
+        </div>
+
+        <p class="calc__disclaimer">
+          Surgeon fee estimates based on typical NYC pricing. Final cost confirmed at consultation based on your individual anatomy and chosen technique.
+        </p>
+
+        <a href="/schedule-consultation/" class="calc__cta">Book Your Consultation</a>
+      </div>
+    </section>
+
+    <!-- Below-fold page content (context) -->
+    <section id="what-makes-up" style="margin-bottom:3rem">
+      <h2 class="section-heading">Factors That Influence the Cost of<br>Liposuction in NYC</h2>
+      <p class="section-body">
+        When considering liposuction, one of the most reasonable questions is about cost. The price of liposuction in New York City is influenced by several key factors — including the number of treatment areas, the technique used (VASER, BodyTite, power-assisted), anesthesia type, and the surgeon's experience and credentials. Dr. Smith provides transparent pricing and detailed quotes during consultation.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- Right: empty (mirrors site layout) -->
+  <aside class="right-col" aria-hidden="true"></aside>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var AREAS = [
+    { id: 'abd-full',    name: 'Abdomen,\nupper & lower', low: 6500, high: 9500 },
+    { id: 'abd-lower',   name: 'Abdomen, lower',          low: 4000, high: 6500 },
+    { id: 'arms',        name: 'Arms',                    low: 4500, high: 7000 },
+    { id: 'back',        name: 'Back',                    low: 4500, high: 7500 },
+    { id: 'male-breast', name: 'Breasts, male',           low: 4500, high: 7500 },
+    { id: 'banana-roll', name: 'Banana Roll',             low: 3500, high: 5500 },
+    { id: 'chin',        name: 'Chin, Jowls, Neck',       low: 3500, high: 5500 },
+    { id: 'flanks',      name: 'Flanks',                  low: 4000, high: 6500 },
+    { id: 'ant-thighs',  name: 'Anterior Thighs',         low: 4500, high: 7000 },
+    { id: 'inn-thighs',  name: 'Inner Thighs',            low: 4000, high: 6500 },
+    { id: 'out-thighs',  name: 'Outer Thighs',            low: 4500, high: 7000 },
+    { id: 'axilla',      name: 'Axilla / Armpit',         low: 3500, high: 5500 },
+  ];
+
+  var CHECK_SVG = '<svg viewBox="0 0 12 9" fill="none" aria-hidden="true"><path d="M1 4.5l3.5 3.5L11 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  function $(id) { return document.getElementById(id); }
+  function fmt(n) { return '$' + n.toLocaleString('en-US'); }
+
+  function anesthesia(n) {
+    if (n <= 0) return null;
+    if (n === 1) return { low: 500,  high: 1500 };
+    if (n <= 3)  return { low: 1000, high: 2000 };
+    return             { low: 1500, high: 3000 };
+  }
+
+  function build() {
+    var grid = $('calc-grid');
+    AREAS.forEach(function (a) {
+      var label = document.createElement('label');
+      label.className = 'calc__area';
+
+      var inp = document.createElement('input');
+      inp.type = 'checkbox';
+      inp.value = a.id;
+      inp.setAttribute('aria-label', a.name.replace('\n', ' ') + ', ' + fmt(a.low) + ' to ' + fmt(a.high));
+
+      var btn = document.createElement('div');
+      btn.className = 'calc__btn';
+
+      var nameSpan = document.createElement('span');
+      nameSpan.style.flex = '1';
+      nameSpan.innerHTML = a.name.replace('\n', '<br>');
+
+      var circle = document.createElement('span');
+      circle.className = 'calc__circle';
+      circle.innerHTML = CHECK_SVG;
+
+      btn.appendChild(nameSpan);
+      btn.appendChild(circle);
+      label.appendChild(inp);
+      label.appendChild(btn);
+      grid.appendChild(label);
+    });
+  }
+
+  function showResult() {
+    var inputs = [].slice.call(document.querySelectorAll('#calc-grid input:checked'));
+    var ids = inputs.map(function (i) { return i.value; });
+    var sel = AREAS.filter(function (a) { return ids.indexOf(a.id) !== -1; });
+
+    var warning = $('calc-warning');
+    if (sel.length === 0) {
+      warning.classList.add('show');
+      $('calc-result').classList.remove('visible');
+      return;
+    }
+    warning.classList.remove('show');
+
+    var lo = sel.reduce(function (s, a) { return s + a.low;  }, 0);
+    var hi = sel.reduce(function (s, a) { return s + a.high; }, 0);
+    var n  = sel.length;
+
+    $('calc-range').textContent     = fmt(lo) + '\u2013' + fmt(hi);
+    $('calc-areas-count').textContent = n === 1 ? '1 area selected' : n + ' areas selected';
+
+    $('calc-breakdown').innerHTML = sel.map(function (a) {
+      return '<div class="calc__row">' +
+        '<span class="calc__row-name">' + a.name.replace('\n', ' ') + '</span>' +
+        '<span class="calc__row-price">' + fmt(a.low) + '\u2013' + fmt(a.high) + '</span>' +
+        '</div>';
+    }).join('');
+
+    var fees = anesthesia(n);
+    var anesEl = $('calc-anes');
+    if (fees) {
+      $('calc-anes-price').textContent = fmt(fees.low) + '\u2013' + fmt(fees.high);
+      anesEl.classList.add('show');
+    } else {
+      anesEl.classList.remove('show');
+    }
+
+    var resultEl = $('calc-result');
+    resultEl.classList.add('visible');
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  build();
+  $('calc-btn').addEventListener('click', showResult);
+}());
+</script>
+
+</body>
+</html>
