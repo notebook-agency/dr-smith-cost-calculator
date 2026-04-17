@@ -148,8 +148,63 @@
 }
 @media (max-width: 700px) {
   .dc__layout { grid-template-columns: 1fr; }
-  .dc__sidebar { position: static !important; order: -1; }
+  .dc__sidebar { position: static !important; }
+  /* Inputs first, result below — correct selection-before-feedback flow */
   .dc__mobile-cta { display: block !important; }
+  .dc__mobile-bar { display: flex !important; }
+}
+
+/* ── Sticky mobile summary bar ── */
+.dc__mobile-bar {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--ink);
+  color: #fff;
+  padding: 0.875rem 1.25rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  z-index: 100;
+  box-shadow: 0 -4px 16px rgba(26,24,20,.15);
+}
+.dc__mobile-bar-estimate {
+  flex: 1;
+}
+.dc__mobile-bar-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 0.1rem;
+}
+.dc__mobile-bar-range {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.dc__mobile-bar-cta {
+  display: block;
+  padding: 0.6rem 1.125rem;
+  background: var(--gold);
+  color: #fff;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border-radius: var(--radius);
+  white-space: nowrap;
+  transition: filter var(--t);
+  flex-shrink: 0;
+}
+.dc__mobile-bar-cta:hover { filter: brightness(1.1); }
+/* Push content up so it's not hidden behind sticky bar */
+@media (max-width: 700px) {
+  .dc { padding-bottom: 5rem; }
 }
 
 /* ── Left column ── */
@@ -671,6 +726,15 @@ details[open] > summary { color: var(--gold); }
   </div>
 </div>
 
+<!-- Sticky mobile summary bar -->
+<div class="dc__mobile-bar" id="dc-mobile-bar" aria-live="polite" aria-hidden="true">
+  <div class="dc__mobile-bar-estimate">
+    <div class="dc__mobile-bar-label">Estimated fee</div>
+    <div class="dc__mobile-bar-range" id="dc-bar-range">—</div>
+  </div>
+  <a href="/schedule-consultation/" class="dc__mobile-bar-cta">Book Consultation</a>
+</div>
+
 <!-- ════════════════════════════════════
      FAQ SECTION
      ════════════════════════════════════ -->
@@ -863,6 +927,11 @@ details[open] > summary { color: var(--gold); }
 
     $('dc-monthly').textContent = '~' + fmt(monthlyPayment(lo)) + '/mo';
     $('dc-finance').classList.add('show');
+
+    // Update sticky mobile bar
+    var bar = $('dc-mobile-bar');
+    $('dc-bar-range').textContent = fmt(lo) + '\u2013' + fmt(hi);
+    bar.setAttribute('aria-hidden', 'false');
   }
 
   // Wire technique change
