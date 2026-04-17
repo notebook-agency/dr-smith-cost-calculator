@@ -6,123 +6,157 @@
 <title>Liposuction Cost Calculator — Dr. Darren Smith</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --ink:        #1C1917;
-  --ink-2:      #44403C;
-  --gold:       #A16207;
-  --gold-light: #FEF3C7;
-  --bg:         #FAFAF9;
-  --surface:    #FFFFFF;
-  --muted:      #78716C;
-  --border:     #D6D3D1;
-  --border-soft:#E7E5E4;
-  --radius-sm:  8px;
-  --radius-md:  14px;
-  --radius-lg:  20px;
-  --shadow-sm:  0 1px 3px rgba(28,25,23,.06), 0 1px 2px rgba(28,25,23,.04);
-  --shadow-md:  0 4px 16px rgba(28,25,23,.08), 0 1px 4px rgba(28,25,23,.04);
-  --shadow-lg:  0 12px 40px rgba(28,25,23,.12), 0 4px 12px rgba(28,25,23,.06);
-  --transition: 180ms cubic-bezier(.4,0,.2,1);
+  --gold:         #9A6F00;
+  --gold-mid:     #B8860B;
+  --gold-pale:    #FBF5E6;
+  --gold-border:  #E8D8A0;
+  --ink:          #1A1814;
+  --ink-2:        #3D3830;
+  --muted:        #7A736A;
+  --bg:           #F9F7F4;
+  --surface:      #FFFFFF;
+  --surface-warm: #FDFBF7;
+  --border:       #EAE6E0;
+  --border-2:     #D8D2C8;
+  --radius:       10px;
+  --radius-lg:    16px;
+  --shadow-xs:    0 1px 2px rgba(26,24,20,.05);
+  --shadow-sm:    0 2px 8px rgba(26,24,20,.07), 0 1px 3px rgba(26,24,20,.04);
+  --shadow-md:    0 6px 24px rgba(26,24,20,.09), 0 2px 6px rgba(26,24,20,.05);
+  --t:            160ms cubic-bezier(.4,0,.2,1);
 }
 
 body {
   background: var(--bg);
-  font-family: 'Jost', -apple-system, sans-serif;
+  font-family: 'Jost', -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
 }
 
 /* ── Wrapper ── */
 .dc {
-  max-width: 1020px;
+  max-width: 1040px;
   margin: 0 auto;
-  padding: 3.5rem 1.5rem 4rem;
+  padding: 3rem 1.5rem 4rem;
 }
 
 /* ── Header ── */
 .dc__header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2.75rem;
 }
-.dc__eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: 'Jost', sans-serif;
-  font-size: 0.7rem;
+.dc__kicker {
+  display: inline-block;
+  font-size: 0.68rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 1rem;
-}
-.dc__eyebrow::before,
-.dc__eyebrow::after {
-  content: '';
-  display: block;
-  width: 28px;
-  height: 1px;
-  background: var(--gold);
-  opacity: 0.5;
+  margin-bottom: 0.875rem;
 }
 .dc__title {
   font-family: 'Bodoni Moda', Georgia, serif;
-  font-size: clamp(1.75rem, 4vw, 2.75rem);
-  font-weight: 600;
+  font-size: clamp(1.9rem, 4.5vw, 3rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
   color: var(--ink);
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.875rem;
 }
 .dc__title em {
   font-style: italic;
-  color: var(--gold);
+  font-weight: 400;
+  color: var(--gold-mid);
 }
 .dc__subtitle {
-  font-size: 0.95rem;
+  font-size: 0.925rem;
   font-weight: 300;
   color: var(--muted);
-  line-height: 1.65;
-  max-width: 480px;
+  line-height: 1.7;
+  max-width: 420px;
   margin: 0 auto;
+}
+
+/* ── Divider ornament ── */
+.dc__ornament {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: center;
+  margin: 0 auto 2.75rem;
+  max-width: 200px;
+}
+.dc__ornament-line {
+  flex: 1;
+  height: 1px;
+  background: var(--gold-border);
+}
+.dc__ornament-diamond {
+  width: 6px;
+  height: 6px;
+  background: var(--gold-mid);
+  transform: rotate(45deg);
+  flex-shrink: 0;
 }
 
 /* ── Layout ── */
 .dc__layout {
   display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: 1.75rem;
+  grid-template-columns: 1fr 300px;
+  gap: 2rem;
   align-items: start;
 }
-@media (max-width: 720px) {
+@media (max-width: 740px) {
   .dc__layout { grid-template-columns: 1fr; }
-  .dc__sidebar { position: static !important; order: -1; }
+  .dc__sticky { position: static !important; }
+  .dc__sticky { order: -1; }
 }
 
-/* ── Section title ── */
-.dc__section-title {
-  font-size: 0.68rem;
+/* ── Left panel ── */
+.dc__panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+}
+.dc__panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+.dc__panel-title {
+  font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 1rem;
+}
+.dc__panel-count {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--gold);
+  min-width: 80px;
+  text-align: right;
+  transition: opacity var(--t);
 }
 
 /* ── Area grid ── */
-.dc__areas {
+.dc__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
   gap: 0.625rem;
 }
 
-/* ── Area card ── */
-.dc__area { position: relative; cursor: pointer; }
-.dc__area input {
+/* ── Area item ── */
+.dc__area { position: relative; }
+.dc__area input[type="checkbox"] {
   position: absolute;
   opacity: 0;
   width: 0;
@@ -131,255 +165,246 @@ body {
 }
 .dc__card {
   display: block;
-  padding: 1rem 1.125rem;
-  background: var(--surface);
-  border: 1.5px solid var(--border-soft);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-  transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
-  position: relative;
-  overflow: hidden;
+  padding: 0.875rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
   cursor: pointer;
-}
-.dc__card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(161,98,7,.05) 0%, transparent 60%);
-  opacity: 0;
-  transition: opacity var(--transition);
+  position: relative;
+  background: var(--surface-warm);
+  transition: border-color var(--t), background var(--t), box-shadow var(--t), transform var(--t);
 }
 .dc__area:hover .dc__card {
-  border-color: rgba(161,98,7,.4);
-  box-shadow: var(--shadow-md);
+  border-color: var(--gold-border);
+  box-shadow: var(--shadow-xs);
 }
-.dc__area:hover .dc__card::before { opacity: 1; }
 .dc__area input:checked + .dc__card {
-  border-color: var(--gold);
-  background: #FFFBEB;
-  box-shadow: 0 0 0 3px rgba(161,98,7,.12), var(--shadow-sm);
+  border-color: var(--gold-mid);
+  background: var(--gold-pale);
+  box-shadow: 0 0 0 3px rgba(154,111,0,.1);
 }
-.dc__area input:checked + .dc__card::before { opacity: 1; }
+.dc__area:active .dc__card { transform: scale(0.985); }
 
-/* Check indicator */
-.dc__check {
+/* Dot indicator */
+.dc__dot {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 20px;
-  height: 20px;
+  top: 9px;
+  right: 9px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  border: 1.5px solid var(--border);
+  border: 1.5px solid var(--border-2);
   background: var(--surface);
+  transition: all var(--t);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--transition);
 }
-.dc__area input:checked + .dc__card .dc__check {
+.dc__area input:checked + .dc__card .dc__dot {
   background: var(--gold);
   border-color: var(--gold);
 }
-.dc__check-icon {
-  width: 10px;
-  height: 10px;
+.dc__dot svg {
+  width: 9px;
+  height: 9px;
   opacity: 0;
-  transition: opacity var(--transition);
+  transition: opacity var(--t);
 }
-.dc__area input:checked + .dc__card .dc__check-icon { opacity: 1; }
+.dc__area input:checked + .dc__card .dc__dot svg { opacity: 1; }
 
 .dc__area-name {
-  font-size: 0.875rem;
+  font-size: 0.84rem;
   font-weight: 500;
   color: var(--ink);
   line-height: 1.35;
   padding-right: 1.5rem;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.25rem;
 }
 .dc__area-price {
-  font-size: 0.75rem;
+  font-size: 0.73rem;
   font-weight: 300;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
 }
 
-/* ── Note ── */
+/* ── Anesthesia note ── */
 .dc__note {
   margin-top: 1.25rem;
-  display: flex;
-  gap: 0.75rem;
-  align-items: flex-start;
-  padding: 1rem 1.125rem;
-  background: var(--surface);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-sm);
-}
-.dc__note-icon {
-  flex-shrink: 0;
-  width: 16px;
-  height: 16px;
-  margin-top: 1px;
-  color: var(--gold);
-}
-.dc__note-text {
-  font-size: 0.79rem;
+  padding: 0.875rem 1rem;
+  border-left: 2px solid var(--gold-border);
+  background: var(--gold-pale);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 0.78rem;
   font-weight: 300;
   color: var(--muted);
   line-height: 1.65;
 }
-.dc__note-text strong { font-weight: 500; color: var(--ink-2); }
+.dc__note strong { font-weight: 500; color: var(--ink-2); }
 
 /* ── Sidebar ── */
-.dc__sidebar { position: sticky; top: 1.5rem; }
+.dc__sticky { position: sticky; top: 1.5rem; }
 
-/* ── Result panel ── */
+/* ── Result card ── */
 .dc__result {
-  background: var(--ink);
-  color: #fff;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
 }
 
-/* Gold top bar */
-.dc__result-bar {
-  height: 3px;
-  background: linear-gradient(90deg, var(--gold) 0%, #D97706 100%);
+/* Gold top accent line */
+.dc__result-accent {
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold) 0%, #D4A017 50%, var(--gold) 100%);
 }
 
-.dc__result-inner { padding: 1.75rem; }
+.dc__result-body { padding: 1.625rem; }
 
 /* Empty state */
 .dc__empty {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   text-align: center;
-  padding: 1.5rem 0 0.5rem;
+  padding: 1.5rem 0.5rem 1rem;
 }
 .dc__empty-icon {
-  width: 40px;
-  height: 40px;
-  margin-bottom: 1rem;
-  opacity: 0.2;
+  width: 36px;
+  height: 36px;
+  margin: 0 auto 0.875rem;
+  color: var(--border-2);
 }
 .dc__empty-text {
-  font-family: 'Jost', sans-serif;
-  font-size: 0.875rem;
+  font-size: 0.84rem;
   font-weight: 300;
-  opacity: 0.5;
-  line-height: 1.6;
+  color: var(--muted);
+  line-height: 1.65;
 }
 
 /* Result content */
 .dc__content { display: none; }
+
 .dc__result-label {
   font-size: 0.65rem;
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  opacity: 0.45;
-  margin-bottom: 0.3rem;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
 }
-.dc__result-range {
+.dc__result-total {
   font-family: 'Bodoni Moda', Georgia, serif;
-  font-size: clamp(1.4rem, 3.5vw, 1.9rem);
-  font-weight: 600;
+  font-size: clamp(1.45rem, 3vw, 1.85rem);
+  font-weight: 500;
   letter-spacing: -0.02em;
+  color: var(--ink);
   line-height: 1.1;
   margin-bottom: 0.3rem;
   font-variant-numeric: tabular-nums;
 }
-.dc__result-count {
-  font-size: 0.78rem;
+.dc__result-sub {
+  font-size: 0.76rem;
   font-weight: 300;
-  opacity: 0.45;
+  color: var(--muted);
   margin-bottom: 1.25rem;
 }
 
-/* Divider */
-.dc__divider {
+.dc__sep {
   height: 1px;
-  background: rgba(255,255,255,.1);
-  margin-bottom: 1.125rem;
+  background: var(--border);
+  margin-bottom: 1rem;
 }
 
-/* Breakdown list */
-.dc__list { list-style: none; margin-bottom: 1.25rem; }
-.dc__list-item {
+/* Breakdown */
+.dc__breakdown { margin-bottom: 0.75rem; }
+.dc__breakdown-row {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   gap: 0.5rem;
+  padding: 0.3rem 0;
   font-size: 0.78rem;
-  padding: 0.35rem 0;
-  border-bottom: 1px solid rgba(255,255,255,.06);
+  border-bottom: 1px solid var(--border);
 }
-.dc__list-item:last-child { border-bottom: none; }
-.dc__list-name { font-weight: 300; opacity: 0.75; }
-.dc__list-price { font-weight: 400; opacity: 0.55; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.dc__breakdown-row:last-child { border-bottom: none; }
+.dc__breakdown-name { font-weight: 400; color: var(--ink-2); }
+.dc__breakdown-price { font-weight: 300; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
 
-/* Anesthesia row */
-.dc__anesthesia-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 0.5rem;
-  font-size: 0.78rem;
-  padding: 0.5rem 0.75rem;
-  background: rgba(255,255,255,.06);
-  border-radius: 6px;
-  margin-bottom: 1.25rem;
+/* Anesthesia estimate row */
+.dc__anes-row {
   display: none;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 1rem;
+  background: var(--gold-pale);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius);
+  font-size: 0.76rem;
 }
-.dc__anesthesia-row.visible { display: flex; }
-.dc__anesthesia-label { font-weight: 300; opacity: 0.6; }
-.dc__anesthesia-price { font-weight: 400; opacity: 0.5; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.dc__anes-row.show { display: flex; }
+.dc__anes-name { font-weight: 400; color: var(--ink-2); }
+.dc__anes-price { font-weight: 300; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
 
-.dc__result-disclaimer {
+.dc__disclaimer {
   font-size: 0.7rem;
   font-weight: 300;
-  opacity: 0.35;
+  color: var(--muted);
   line-height: 1.6;
   margin-bottom: 1.25rem;
+  opacity: 0.8;
 }
 
-/* CTA button */
+/* CTA */
 .dc__cta {
   display: block;
   width: 100%;
   padding: 0.875rem 1rem;
-  background: linear-gradient(135deg, #B45309 0%, var(--gold) 100%);
+  background: var(--ink);
   color: #fff;
   font-family: 'Jost', sans-serif;
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   text-align: center;
   text-decoration: none;
   border: none;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius);
   cursor: pointer;
-  transition: filter var(--transition), transform var(--transition);
+  transition: background var(--t), transform var(--t);
 }
-.dc__cta:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.dc__cta:hover { background: var(--ink-2); transform: translateY(-1px); }
 .dc__cta:active { transform: translateY(0); }
+.dc__cta:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
-/* Focus styles for accessibility */
+/* Also show gold CTA variant when areas selected */
+.dc__cta-gold {
+  display: none;
+  width: 100%;
+  margin-top: 0.625rem;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  color: var(--gold);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background var(--t), border-color var(--t);
+}
+.dc__cta-gold:hover { background: var(--gold-pale); border-color: var(--gold-mid); }
+
+/* Accessibility */
 .dc__area input:focus-visible + .dc__card {
   outline: 2px solid var(--gold);
   outline-offset: 2px;
 }
-.dc__cta:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 3px;
-}
 
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition: none !important; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
 }
 </style>
 </head>
@@ -389,63 +414,68 @@ body {
 
   <!-- Header -->
   <header class="dc__header">
-    <div class="dc__eyebrow">Darren Smith MD &middot; New York City</div>
-    <h2 class="dc__title">Your <em>personalised</em><br>cost estimate</h2>
-    <p class="dc__subtitle">Select the areas you're considering. Your estimate updates in real time.</p>
+    <span class="dc__kicker">Dr. Darren Smith, MD &nbsp;&middot;&nbsp; New York City</span>
+    <h2 class="dc__title">Liposuction<br><em>cost estimator</em></h2>
+    <p class="dc__subtitle">Select the areas you're considering. Your personalised estimate updates instantly.</p>
   </header>
+
+  <div class="dc__ornament" aria-hidden="true">
+    <div class="dc__ornament-line"></div>
+    <div class="dc__ornament-diamond"></div>
+    <div class="dc__ornament-line"></div>
+  </div>
 
   <div class="dc__layout">
 
-    <!-- Left column -->
+    <!-- Areas panel -->
     <div>
-      <p class="dc__section-title">Treatment areas</p>
-      <div class="dc__areas" id="dc-areas" role="group" aria-label="Select treatment areas"></div>
+      <div class="dc__panel">
+        <div class="dc__panel-head">
+          <span class="dc__panel-title">Treatment areas</span>
+          <span class="dc__panel-count" id="dc-count" aria-live="polite"></span>
+        </div>
+        <div class="dc__grid" id="dc-grid" role="group" aria-label="Select treatment areas"></div>
+      </div>
 
       <div class="dc__note" role="note">
-        <svg class="dc__note-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.25"/>
-          <path d="M8 7v4M8 5.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-        <p class="dc__note-text">
-          <strong>Not included:</strong> Anesthesia and facility fees add approximately
-          <strong>$500–$1,500</strong> for a single area (local anesthesia) or up to
-          <strong>$1,500–$3,000</strong> for multiple areas (general or twilight anesthesia).
-          Exact pricing is confirmed at consultation.
-        </p>
+        <strong>Anesthesia &amp; facility fees</strong> are not included.
+        These add approximately <strong>$500–$1,500</strong> for a single area or
+        <strong>$1,500–$3,000</strong> for multiple areas.
+        Your exact quote is confirmed at consultation.
       </div>
     </div>
 
-    <!-- Right column: result -->
-    <div class="dc__sidebar">
-      <div class="dc__result" role="region" aria-label="Cost estimate" aria-live="polite">
-        <div class="dc__result-bar"></div>
-        <div class="dc__result-inner">
+    <!-- Result sidebar -->
+    <aside class="dc__sticky">
+      <div class="dc__result" role="region" aria-label="Your cost estimate" aria-live="polite">
+        <div class="dc__result-accent"></div>
+        <div class="dc__result-body">
 
-          <div class="dc__empty" id="dc-empty" aria-hidden="false">
-            <svg class="dc__empty-icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-              <rect x="8" y="12" width="24" height="20" rx="3" stroke="white" stroke-width="1.5"/>
-              <path d="M14 12V9a6 6 0 0112 0v3" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M15 21h10M15 26h6" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          <div class="dc__empty" id="dc-empty">
+            <svg class="dc__empty-icon" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+              <rect x="5" y="9" width="26" height="21" rx="3" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M12 9V7a6 6 0 0112 0v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M12 19h12M12 24h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
             <p class="dc__empty-text">Select treatment areas<br>to see your estimate</p>
           </div>
 
-          <div class="dc__content" id="dc-content" aria-hidden="true">
+          <div class="dc__content" id="dc-content">
             <div class="dc__result-label">Estimated surgeon fee</div>
-            <div class="dc__result-range" id="dc-range">—</div>
-            <div class="dc__result-count" id="dc-count"></div>
+            <div class="dc__result-total" id="dc-total">—</div>
+            <div class="dc__result-sub" id="dc-sub"></div>
 
-            <div class="dc__divider"></div>
+            <div class="dc__sep"></div>
 
-            <ul class="dc__list" id="dc-list" aria-label="Selected areas breakdown"></ul>
+            <div class="dc__breakdown" id="dc-breakdown"></div>
 
-            <div class="dc__anesthesia-row" id="dc-anesthesia">
-              <span class="dc__anesthesia-label">+ Est. anesthesia & facility</span>
-              <span class="dc__anesthesia-price" id="dc-anesthesia-price"></span>
+            <div class="dc__anes-row" id="dc-anes">
+              <span class="dc__anes-name">+ Est. anesthesia &amp; facility</span>
+              <span class="dc__anes-price" id="dc-anes-price"></span>
             </div>
 
-            <p class="dc__result-disclaimer">
-              Estimates reflect typical NYC surgeon fees and vary by anatomy, technique, and individual consultation.
+            <p class="dc__disclaimer">
+              Surgeon fee estimates only. Varies by anatomy, technique, and consultation findings.
             </p>
 
             <a href="/schedule-consultation/" class="dc__cta">Book a Consultation</a>
@@ -453,7 +483,7 @@ body {
 
         </div>
       </div>
-    </div>
+    </aside>
 
   </div>
 </div>
@@ -463,113 +493,97 @@ body {
   'use strict';
 
   var AREAS = [
-    { id: 'abd-full',     name: 'Abdomen (upper & lower)', low: 6500, high: 9500 },
-    { id: 'abd-lower',    name: 'Abdomen (lower only)',    low: 4000, high: 6500 },
-    { id: 'arms',         name: 'Arms',                   low: 4500, high: 7000 },
-    { id: 'back',         name: 'Back',                   low: 4500, high: 7500 },
-    { id: 'male-breast',  name: 'Male Breast Tissue',     low: 4500, high: 7500 },
-    { id: 'banana-roll',  name: 'Banana Roll',            low: 3500, high: 5500 },
-    { id: 'chin',         name: 'Chin, Jowls & Neck',     low: 3500, high: 5500 },
-    { id: 'flanks',       name: 'Flanks',                 low: 4000, high: 6500 },
-    { id: 'ant-thighs',   name: 'Anterior Thighs',        low: 4500, high: 7000 },
-    { id: 'inner-thighs', name: 'Inner Thighs',           low: 4000, high: 6500 },
-    { id: 'outer-thighs', name: 'Outer Thighs',           low: 4500, high: 7000 },
-    { id: 'axilla',       name: 'Axilla / Armpit',        low: 3500, high: 5500 },
+    { id: 'abd-full',    name: 'Abdomen (upper & lower)', low: 6500, high: 9500 },
+    { id: 'abd-lower',   name: 'Abdomen (lower only)',    low: 4000, high: 6500 },
+    { id: 'arms',        name: 'Arms',                   low: 4500, high: 7000 },
+    { id: 'back',        name: 'Back',                   low: 4500, high: 7500 },
+    { id: 'male-breast', name: 'Male Breast Tissue',     low: 4500, high: 7500 },
+    { id: 'banana-roll', name: 'Banana Roll',            low: 3500, high: 5500 },
+    { id: 'chin',        name: 'Chin, Jowls & Neck',     low: 3500, high: 5500 },
+    { id: 'flanks',      name: 'Flanks',                 low: 4000, high: 6500 },
+    { id: 'ant-thighs',  name: 'Anterior Thighs',        low: 4500, high: 7000 },
+    { id: 'inn-thighs',  name: 'Inner Thighs',           low: 4000, high: 6500 },
+    { id: 'out-thighs',  name: 'Outer Thighs',           low: 4500, high: 7000 },
+    { id: 'axilla',      name: 'Axilla / Armpit',        low: 3500, high: 5500 },
   ];
 
-  function fmt(n) {
-    return '$' + n.toLocaleString('en-US');
+  var CHECK = '<svg viewBox="0 0 9 7" fill="none" aria-hidden="true"><path d="M1 3.5l2.5 2.5L8 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  function $(id) { return document.getElementById(id); }
+  function fmt(n) { return '$' + n.toLocaleString('en-US'); }
+
+  function anesthesia(n) {
+    if (n <= 0) return null;
+    if (n === 1) return { low: 500,  high: 1500 };
+    if (n <= 3)  return { low: 1000, high: 2000 };
+    return             { low: 1500, high: 3000 };
   }
 
-  function anesthesia(count) {
-    if (count <= 0) return null;
-    if (count === 1) return { low: 500,  high: 1500 };
-    if (count <= 3)  return { low: 1000, high: 2000 };
-    return               { low: 1500, high: 3000 };
-  }
+  function build() {
+    var grid = $('dc-grid');
+    AREAS.forEach(function (a) {
+      var lbl = document.createElement('label');
+      lbl.className = 'dc__area';
 
-  var CHECK_SVG = '<svg class="dc__check-icon" viewBox="0 0 10 8" fill="none" aria-hidden="true">' +
-    '<path d="M1 4l2.8 2.8L9 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' +
-    '</svg>';
-
-  function buildAreas() {
-    var container = document.getElementById('dc-areas');
-    AREAS.forEach(function (area) {
-      var label = document.createElement('label');
-      label.className = 'dc__area';
-
-      var input = document.createElement('input');
-      input.type = 'checkbox';
-      input.value = area.id;
-      input.id = 'area-' + area.id;
-      input.setAttribute('aria-label', area.name + ', ' + fmt(area.low) + ' to ' + fmt(area.high));
-      input.addEventListener('change', update);
+      var inp = document.createElement('input');
+      inp.type = 'checkbox';
+      inp.value = a.id;
+      inp.setAttribute('aria-label', a.name + ', ' + fmt(a.low) + ' to ' + fmt(a.high));
+      inp.addEventListener('change', render);
 
       var card = document.createElement('div');
       card.className = 'dc__card';
       card.innerHTML =
-        '<div class="dc__check">' + CHECK_SVG + '</div>' +
-        '<div class="dc__area-name">' + area.name + '</div>' +
-        '<div class="dc__area-price">' + fmt(area.low) + ' \u2013 ' + fmt(area.high) + '</div>';
+        '<div class="dc__dot">' + CHECK + '</div>' +
+        '<div class="dc__area-name">' + a.name + '</div>' +
+        '<div class="dc__area-price">' + fmt(a.low) + '\u2013' + fmt(a.high) + '</div>';
 
-      label.appendChild(input);
-      label.appendChild(card);
-      container.appendChild(label);
+      lbl.appendChild(inp);
+      lbl.appendChild(card);
+      grid.appendChild(lbl);
     });
   }
 
-  function update() {
-    var inputs = Array.prototype.slice.call(document.querySelectorAll('#dc-areas input:checked'));
-    var ids = inputs.map(function (i) { return i.value; });
-    var selected = AREAS.filter(function (a) { return ids.indexOf(a.id) !== -1; });
+  function render() {
+    var checked = [].slice.call(document.querySelectorAll('#dc-grid input:checked'))
+                   .map(function (i) { return i.value; });
+    var sel = AREAS.filter(function (a) { return checked.indexOf(a.id) !== -1; });
+    var n = sel.length;
 
-    var emptyEl   = document.getElementById('dc-empty');
-    var contentEl = document.getElementById('dc-content');
-    var anesEl    = document.getElementById('dc-anesthesia');
+    $('dc-count').textContent = n > 0 ? (n === 1 ? '1 area selected' : n + ' areas selected') : '';
 
-    if (selected.length === 0) {
-      emptyEl.removeAttribute('aria-hidden');
-      contentEl.setAttribute('aria-hidden', 'true');
-      emptyEl.style.display = '';
-      contentEl.style.display = 'none';
-      anesEl.classList.remove('visible');
+    if (n === 0) {
+      $('dc-empty').style.display = '';
+      $('dc-content').style.display = 'none';
+      $('dc-anes').classList.remove('show');
       return;
     }
 
-    emptyEl.setAttribute('aria-hidden', 'true');
-    emptyEl.style.display = 'none';
-    contentEl.removeAttribute('aria-hidden');
-    contentEl.style.display = 'block';
+    $('dc-empty').style.display = 'none';
+    $('dc-content').style.display = 'block';
 
-    var totalLow  = selected.reduce(function (s, a) { return s + a.low;  }, 0);
-    var totalHigh = selected.reduce(function (s, a) { return s + a.high; }, 0);
+    var lo = sel.reduce(function (s, a) { return s + a.low;  }, 0);
+    var hi = sel.reduce(function (s, a) { return s + a.high; }, 0);
 
-    document.getElementById('dc-range').textContent = fmt(totalLow) + ' \u2013 ' + fmt(totalHigh);
+    $('dc-total').textContent = fmt(lo) + '\u2013' + fmt(hi);
+    $('dc-sub').textContent   = n === 1 ? '1 area' : n + ' areas';
 
-    var n = selected.length;
-    document.getElementById('dc-count').textContent =
-      n === 1 ? '1 area selected' : n + ' areas selected';
-
-    var list = document.getElementById('dc-list');
-    list.innerHTML = selected.map(function (a) {
-      return '<li class="dc__list-item">' +
-        '<span class="dc__list-name">' + a.name + '</span>' +
-        '<span class="dc__list-price">' + fmt(a.low) + '\u2013' + fmt(a.high) + '</span>' +
-        '</li>';
+    $('dc-breakdown').innerHTML = sel.map(function (a) {
+      return '<div class="dc__breakdown-row">' +
+        '<span class="dc__breakdown-name">' + a.name + '</span>' +
+        '<span class="dc__breakdown-price">' + fmt(a.low) + '\u2013' + fmt(a.high) + '</span>' +
+        '</div>';
     }).join('');
 
     var fees = anesthesia(n);
     if (fees) {
-      document.getElementById('dc-anesthesia-price').textContent =
-        fmt(fees.low) + '\u2013' + fmt(fees.high);
-      anesEl.classList.add('visible');
-    } else {
-      anesEl.classList.remove('visible');
+      $('dc-anes-price').textContent = fmt(fees.low) + '\u2013' + fmt(fees.high);
+      $('dc-anes').classList.add('show');
     }
   }
 
-  buildAreas();
-})();
+  build();
+}());
 </script>
 
 </body>
