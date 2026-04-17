@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liposuction Cost Calculator — Dr. Darren Smith</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #1a3a5c;
+  --accent: #b8975a;
+  --accent-light: #fdf8f0;
+  --bg: #f5f4f1;
+  --white: #ffffff;
+  --text: #1e1e1e;
+  --muted: #6b7280;
+  --border: #e2ddd6;
+  --radius: 12px;
+  --shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06);
+}
+
+.lc {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  padding: 2.5rem 1.25rem 3rem;
+  max-width: 960px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Header */
+.lc__header {
+  text-align: center;
+  margin-bottom: 2.25rem;
+}
+.lc__title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+.lc__subtitle {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Layout */
+.lc__layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 1.5rem;
+  align-items: start;
+}
+@media (max-width: 680px) {
+  .lc__layout { grid-template-columns: 1fr; }
+  .lc__sidebar { position: static !important; order: -1; }
+}
+
+/* Area selection panel */
+.lc__panel {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+}
+.lc__panel-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+.lc__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  gap: 0.625rem;
+}
+
+/* Area card */
+.lc__area { position: relative; cursor: pointer; user-select: none; }
+.lc__area input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.lc__card {
+  display: block;
+  padding: 0.875rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+.lc__area:hover .lc__card {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(184,151,90,0.12);
+}
+.lc__area input:checked + .lc__card {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+/* Checkmark badge */
+.lc__card::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  transition: all 0.15s;
+}
+.lc__area input:checked + .lc__card::after {
+  background: var(--accent);
+  border-color: var(--accent);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 9' fill='none'%3E%3Cpath d='M1 4l3.5 3.5L11 1' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px;
+}
+.lc__area-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 0.2rem;
+  padding-right: 1.25rem;
+  line-height: 1.3;
+}
+.lc__area-price {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* Disclaimer */
+.lc__note {
+  margin-top: 1rem;
+  padding: 0.875rem 1rem 0.875rem 1.125rem;
+  border-left: 3px solid var(--accent);
+  background: var(--white);
+  border-radius: 0 8px 8px 0;
+  box-shadow: var(--shadow);
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.lc__note strong { color: var(--text); }
+
+/* Sidebar */
+.lc__sidebar { position: sticky; top: 1.5rem; }
+.lc__result {
+  background: var(--primary);
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Empty state */
+.lc__empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  opacity: 0.5;
+  padding: 1rem 0;
+}
+.lc__empty svg { margin-bottom: 0.75rem; opacity: 0.6; }
+.lc__empty p { font-size: 0.875rem; line-height: 1.5; }
+
+/* Result content */
+.lc__result-content { display: none; flex-direction: column; flex: 1; }
+.lc__result-eyebrow {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+  margin-bottom: 0.25rem;
+}
+.lc__result-range {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.2rem;
+  line-height: 1.2;
+}
+.lc__result-count {
+  font-size: 0.8rem;
+  opacity: 0.6;
+  margin-bottom: 1rem;
+}
+.lc__breakdown {
+  border-top: 1px solid rgba(255,255,255,0.12);
+  padding-top: 0.875rem;
+  margin-bottom: 0.875rem;
+  flex: 1;
+}
+.lc__breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.78rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  gap: 0.5rem;
+}
+.lc__breakdown-row:last-child { border-bottom: none; }
+.lc__breakdown-name { opacity: 0.8; }
+.lc__breakdown-price { opacity: 0.65; white-space: nowrap; }
+
+.lc__result-disclaimer {
+  font-size: 0.72rem;
+  opacity: 0.5;
+  line-height: 1.55;
+  margin-bottom: 1rem;
+}
+.lc__cta {
+  display: block;
+  background: var(--accent);
+  color: var(--white);
+  text-align: center;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  transition: filter 0.15s;
+  letter-spacing: 0.01em;
+}
+.lc__cta:hover { filter: brightness(1.1); }
+
+/* Anesthesia toggle in sidebar */
+.lc__anesthesia-toggle {
+  margin-top: 0.75rem;
+  padding: 0.875rem 1rem;
+  background: rgba(255,255,255,0.07);
+  border-radius: 8px;
+  display: none;
+}
+.lc__anesthesia-toggle.visible { display: block; }
+.lc__anesthesia-label {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+}
+.lc__anesthesia-range {
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0.9;
+}
+</style>
+</head>
+<body>
+
+<div class="lc">
+  <div class="lc__header">
+    <h2 class="lc__title">Liposuction Cost Estimator</h2>
+    <p class="lc__subtitle">Select the areas you're considering to see an estimated price range for NYC.</p>
+  </div>
+
+  <div class="lc__layout">
+
+    <!-- Left: area selection -->
+    <div>
+      <div class="lc__panel">
+        <p class="lc__panel-label">Select treatment areas</p>
+        <div class="lc__grid" id="lc-grid"></div>
+      </div>
+
+      <div class="lc__note">
+        <strong>Anesthesia &amp; facility fees</strong> are not included above. These typically add
+        <strong>$500</strong> (single area, local anesthesia) to <strong>$3,000</strong>
+        (multiple areas, general or twilight anesthesia). Your exact quote is confirmed during consultation.
+      </div>
+    </div>
+
+    <!-- Right: results -->
+    <div class="lc__sidebar">
+      <div class="lc__result">
+
+        <div class="lc__empty" id="lc-empty">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M9 7H6a2 2 0 00-2 2v9a2 2 0 002 2h12a2 2 0 002-2V9a2 2 0 00-2-2h-3"/>
+            <rect x="9" y="3" width="6" height="6" rx="1"/>
+            <path d="M9 14h6M9 17h4"/>
+          </svg>
+          <p>Select one or more<br>areas to see your estimate</p>
+        </div>
+
+        <div class="lc__result-content" id="lc-content">
+          <div class="lc__result-eyebrow">Estimated procedure cost</div>
+          <div class="lc__result-range" id="lc-range">—</div>
+          <div class="lc__result-count" id="lc-count"></div>
+
+          <div class="lc__breakdown" id="lc-breakdown"></div>
+
+          <div class="lc__result-disclaimer">
+            Estimates reflect typical NYC surgeon fees only. Final pricing depends on anatomy, technique, and consultation findings.
+          </div>
+          <a href="/schedule-consultation/" class="lc__cta">Book a Consultation</a>
+        </div>
+
+      </div>
+
+      <div class="lc__anesthesia-toggle" id="lc-anesthesia">
+        <div class="lc__anesthesia-label">+ Estimated anesthesia &amp; facility fees</div>
+        <div class="lc__anesthesia-range" id="lc-anesthesia-range"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  var AREAS = [
+    { id: 'abd-full',     name: 'Abdomen (upper & lower)', low: 6500,  high: 9500  },
+    { id: 'abd-lower',    name: 'Abdomen (lower only)',    low: 4000,  high: 6500  },
+    { id: 'arms',         name: 'Arms',                   low: 4500,  high: 7000  },
+    { id: 'back',         name: 'Back',                   low: 4500,  high: 7500  },
+    { id: 'male-breast',  name: 'Male Breast Tissue',     low: 4500,  high: 7500  },
+    { id: 'banana-roll',  name: 'Banana Roll',            low: 3500,  high: 5500  },
+    { id: 'chin',         name: 'Chin, Jowls & Neck',     low: 3500,  high: 5500  },
+    { id: 'flanks',       name: 'Flanks',                 low: 4000,  high: 6500  },
+    { id: 'ant-thighs',   name: 'Anterior Thighs',        low: 4500,  high: 7000  },
+    { id: 'inner-thighs', name: 'Inner Thighs',           low: 4000,  high: 6500  },
+    { id: 'outer-thighs', name: 'Outer Thighs',           low: 4500,  high: 7000  },
+    { id: 'axilla',       name: 'Axilla / Armpit',        low: 3500,  high: 5500  },
+  ];
+
+  function fmt(n) {
+    return '$' + n.toLocaleString('en-US');
+  }
+
+  function anesthesiaFees(count) {
+    if (count === 0) return null;
+    if (count === 1) return { low: 500,  high: 1500 };
+    if (count <= 3)  return { low: 1000, high: 2000 };
+    return               { low: 1500, high: 3000 };
+  }
+
+  function buildGrid() {
+    var grid = document.getElementById('lc-grid');
+    AREAS.forEach(function (area) {
+      var label = document.createElement('label');
+      label.className = 'lc__area';
+      var input = document.createElement('input');
+      input.type = 'checkbox';
+      input.value = area.id;
+      input.addEventListener('change', update);
+      var card = document.createElement('div');
+      card.className = 'lc__card';
+      card.innerHTML =
+        '<div class="lc__area-name">' + area.name + '</div>' +
+        '<div class="lc__area-price">' + fmt(area.low) + ' \u2013 ' + fmt(area.high) + '</div>';
+      label.appendChild(input);
+      label.appendChild(card);
+      grid.appendChild(label);
+    });
+  }
+
+  function update() {
+    var checked = Array.prototype.slice.call(
+      document.querySelectorAll('#lc-grid input:checked')
+    ).map(function (i) { return i.value; });
+
+    var selected = AREAS.filter(function (a) { return checked.indexOf(a.id) !== -1; });
+
+    var empty   = document.getElementById('lc-empty');
+    var content = document.getElementById('lc-content');
+    var anesthesiaEl = document.getElementById('lc-anesthesia');
+
+    if (selected.length === 0) {
+      empty.style.display = 'flex';
+      content.style.display = 'none';
+      anesthesiaEl.classList.remove('visible');
+      return;
+    }
+
+    empty.style.display = 'none';
+    content.style.display = 'flex';
+
+    var totalLow  = selected.reduce(function (s, a) { return s + a.low; },  0);
+    var totalHigh = selected.reduce(function (s, a) { return s + a.high; }, 0);
+
+    document.getElementById('lc-range').textContent =
+      fmt(totalLow) + ' \u2013 ' + fmt(totalHigh);
+
+    var n = selected.length;
+    document.getElementById('lc-count').textContent =
+      n === 1 ? '1 area selected' : n + ' areas selected';
+
+    var breakdown = document.getElementById('lc-breakdown');
+    breakdown.innerHTML = selected.map(function (a) {
+      return '<div class="lc__breakdown-row">' +
+        '<span class="lc__breakdown-name">' + a.name + '</span>' +
+        '<span class="lc__breakdown-price">' + fmt(a.low) + '\u2013' + fmt(a.high) + '</span>' +
+        '</div>';
+    }).join('');
+
+    var fees = anesthesiaFees(n);
+    if (fees) {
+      document.getElementById('lc-anesthesia-range').textContent =
+        fmt(fees.low) + ' \u2013 ' + fmt(fees.high);
+      anesthesiaEl.classList.add('visible');
+    }
+  }
+
+  buildGrid();
+})();
+</script>
+
+</body>
+</html>
